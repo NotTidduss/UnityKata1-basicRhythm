@@ -7,6 +7,12 @@ public class Rhythm_System : MonoBehaviour
     public string gameSceneName = "2x_Rhythm_Game";
     public int optionsMenuSlideInTimeInFrames = 150;
 
+    [Header("Timing Indicator Sprites")]
+    public Sprite spriteIndicatorPerfect;
+    public Sprite spriteIndicatorGood;
+    public Sprite spriteIndicatorFine;
+    public Sprite spriteIndicatorMiss;
+
     [Header("Key Bindings")]
     public KeyCode inputLeft;
     public KeyCode inputDown;
@@ -14,13 +20,14 @@ public class Rhythm_System : MonoBehaviour
     public KeyCode inputRight;
 
 
-    void Awake() {
-        inputLeft = (KeyCode) PlayerPrefs.GetInt("rhythm_inputKeyLeft");
-        inputDown = (KeyCode) PlayerPrefs.GetInt("rhythm_inputKeyDown");
-        inputUp = (KeyCode) PlayerPrefs.GetInt("rhythm_inputKeyUp");
-        inputRight = (KeyCode) PlayerPrefs.GetInt("rhythm_inputKeyRight");
-    }
+    void Awake() => updateKeybindings();
 
+    public void updateKeybindings() {
+        inputLeft = (KeyCode)PlayerPrefs.GetInt("rhythm_inputKeyLeft");
+        inputDown = (KeyCode)PlayerPrefs.GetInt("rhythm_inputKeyDown");
+        inputUp = (KeyCode)PlayerPrefs.GetInt("rhythm_inputKeyUp");
+        inputRight = (KeyCode)PlayerPrefs.GetInt("rhythm_inputKeyRight");
+    }
 
     public void loadGameScene() => SceneManager.LoadScene(gameSceneName);
 }

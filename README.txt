@@ -8,12 +8,9 @@ Current features:
  * configurable keybindings
 
 ToDo:
-- refactor keyindings coroutine
-- fix slider position bug
-- make score updates less clunky
-- refactor coroutines in master
-	- delegate more functions from master to new roles
-- implement timing indicators
+- implement fading out of timing indicators
+- decide whether timing indicators should cover notes
+- refactor timing indicator code
 - implement restart level functionality
 - implement level pausing
 - implement long notes

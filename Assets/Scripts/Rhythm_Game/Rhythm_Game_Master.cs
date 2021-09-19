@@ -7,6 +7,7 @@ public class Rhythm_Game_Master : MonoBehaviour
     [SerializeField] private Rhythm_System sys;
     [SerializeField] private Rhythm_Game_UI ui;
     [SerializeField] private Rhythm_Chart chart;
+    [SerializeField] private Rhythm_TimingIndicator timingIndicator;
     [SerializeField] private Transform noteInputTransformLeft;
     [SerializeField] private Transform noteInputTransformDown;
     [SerializeField] private Transform noteInputTransformUp;
@@ -25,20 +26,14 @@ public class Rhythm_Game_Master : MonoBehaviour
 
 
     void Start() {
-        StartCoroutine("PlaceRandomNoteViaChart");
+        ui.initialize();
+        chart.initialize();
+        timingIndicator.initialize(sys);
+
         StartCoroutine("CheckForButtonPress");
         StartCoroutine("CheckForButtonRelease");
-        StartCoroutine("ManageFlow");
     }
 
-
-    IEnumerator PlaceRandomNoteViaChart() {
-        while(true) {
-            chart.placeRandomNote();
-
-            yield return new WaitForSeconds(1f);
-        }
-    }
 
     IEnumerator CheckForButtonPress() {
         while(true) {
@@ -59,14 +54,6 @@ public class Rhythm_Game_Master : MonoBehaviour
             if (Input.GetKeyUp(sys.inputRight)) Destroy(currentJudgementWindowRight); 
 
             yield return null;
-        }
-    }
-
-    IEnumerator ManageFlow() {
-        while(true) {
-            ui.updateScoreText();
-
-            yield return new WaitForSeconds(2f);
         }
     }
 

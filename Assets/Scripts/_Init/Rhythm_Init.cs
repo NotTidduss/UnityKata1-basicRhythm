@@ -51,5 +51,8 @@ public class Rhythm_Init : MonoBehaviour
 
         // INT rhythm_mapScore - the score of the currently played map. Initial value should be 0.
         PlayerPrefs.SetInt("rhythm_mapScore", 0);
+
+        // STRING rhythm_lastNoteHitTiming - the timing in which the last not was hit. Either PERFECT, GOOD, FINE, MISS or "".
+        PlayerPrefs.SetString("rhythm_lastNoteHitTiming", "");
     }
 }

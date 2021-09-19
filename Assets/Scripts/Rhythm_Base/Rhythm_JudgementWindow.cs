@@ -19,8 +19,9 @@ public class Rhythm_JudgementWindow : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.tag == "Note") {
-            Destroy(other.gameObject);
             PlayerPrefs.SetInt("rhythm_mapScore", PlayerPrefs.GetInt("rhythm_mapScore") + judgementValue);
+            PlayerPrefs.SetString("rhythm_lastNoteHitTiming", judgementType.ToString());
+            Destroy(other.gameObject);
         }
     }
 }

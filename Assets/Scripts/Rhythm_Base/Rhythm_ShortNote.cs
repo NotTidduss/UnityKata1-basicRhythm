@@ -18,6 +18,7 @@ public class Rhythm_ShortNote : MonoBehaviour
 
             if (gameObject.transform.position.y < -150f) {
                 PlayerPrefs.SetInt("rhythm_mapScore", PlayerPrefs.GetInt("rhythm_mapScore") + PlayerPrefs.GetInt("rhythm_judgementValue_outOfBounds"));
+                PlayerPrefs.SetString("rhythm_lastNoteHitTiming", "MISS");
                 Destroy(gameObject);
             }
 

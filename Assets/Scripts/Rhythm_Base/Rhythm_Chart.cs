@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Rhythm_Chart : MonoBehaviour
@@ -11,6 +12,16 @@ public class Rhythm_Chart : MonoBehaviour
     [SerializeField] private GameObject shortNoteUp;
     [SerializeField] private GameObject shortNoteRight;
 
+
+    IEnumerator RunChart() {
+        while(true) {
+            placeRandomNote();
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+
+    public void initialize() => StartCoroutine("RunChart");
     public void placeRandomNote() {
         int rng = Random.Range(0,4);
 
