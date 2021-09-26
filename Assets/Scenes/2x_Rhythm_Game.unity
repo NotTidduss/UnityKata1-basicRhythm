@@ -501,13 +501,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSceneName: 2x_Rhythm_Game
   optionsMenuSlideInTimeInFrames: 50
-  spriteIndicatorPerfect: {fileID: 21300000, guid: 99b41b85bdeee8d48a6cceed6c8cd369,
+  spriteIndicatorPerfect: {fileID: 21300000, guid: fa6029967e10a304ba62b7c0c201bfa6,
     type: 3}
-  spriteIndicatorGood: {fileID: 21300000, guid: fe097696a5ffa364eb414d2fd27e5bc6,
+  spriteIndicatorGood: {fileID: 21300000, guid: b95471b57d3a77340850cda6ee8573df,
     type: 3}
-  spriteIndicatorFine: {fileID: 21300000, guid: b3e3328f7c0ea4140b9d5a982d1944f9,
+  spriteIndicatorFine: {fileID: 21300000, guid: 21033ce80d0b68a4cb03f168dcff3543,
     type: 3}
-  spriteIndicatorMiss: {fileID: 21300000, guid: 14ca9253e8a8bf7439f6960ba02ea9a9,
+  spriteIndicatorMiss: {fileID: 21300000, guid: 8d8fad72cb04daa499d9e5368512f54e,
     type: 3}
   inputLeft: 0
   inputDown: 0
@@ -992,7 +992,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1339810509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54eb5abb1dc9fc646b39ae22dea01c25, type: 3}
+  m_Script: {fileID: 11500000, guid: 325b863c7c2acf349b04fc3bd1ff2705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1353023092
