@@ -49,6 +49,10 @@ public class Rhythm_Init : MonoBehaviour
         if (PlayerPrefs.GetInt("rhythm_inputKeyRight") == 0)
             PlayerPrefs.SetInt("rhythm_inputKeyRight", (int) KeyCode.RightArrow);
 
+        // INT rhythm_inputKeyQuickRestart - right key button, default = RightArrow
+        if (PlayerPrefs.GetInt("rhythm_inputKeyQuickRestart") == 0)
+            PlayerPrefs.SetInt("rhythm_inputKeyQuickRestart", (int) KeyCode.R);
+
         // INT rhythm_mapScore - the score of the currently played map. Initial value should be 0.
         PlayerPrefs.SetInt("rhythm_mapScore", 0);
 

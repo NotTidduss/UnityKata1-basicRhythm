@@ -8,14 +8,12 @@ Current features:
  * configurable keybindings
 
 ToDo:
-- implement fading out of timing indicators
-- decide whether timing indicators should cover notes
-- refactor timing indicator code
-- implement restart level functionality
 - implement level pausing
+- implement indicator counts
 - implement long notes
 - implement health system
 - improve charting: "loadChart" function instead of "PlaceRandomNoteViaChart" coroutine
 - add levels
 - aesthetic update
+- destroy indicators so that there is only ever one present at a time
  

@@ -7,11 +7,12 @@ public class Rhythm_Game_Master : MonoBehaviour
     [SerializeField] private Rhythm_System sys;
     [SerializeField] private Rhythm_Game_UI ui;
     [SerializeField] private Rhythm_Chart chart;
-    [SerializeField] private Rhythm_TimingIndicator timingIndicator;
+    [SerializeField] private Rhythm_TimingIndicatorMaster timingIndicator;
     [SerializeField] private Transform noteInputTransformLeft;
     [SerializeField] private Transform noteInputTransformDown;
     [SerializeField] private Transform noteInputTransformUp;
     [SerializeField] private Transform noteInputTransformRight;
+
 
     [Header("Prefab References")]
     [SerializeField] private GameObject leftJudgementWindowPrefabReference;
@@ -19,6 +20,7 @@ public class Rhythm_Game_Master : MonoBehaviour
     [SerializeField] private GameObject upJudgementWindowPrefabReference;
     [SerializeField] private GameObject rightJudgementWindowPrefabReference;
 
+    // private vars
     private GameObject currentJudgementWindowLeft;
     private GameObject currentJudgementWindowDown;
     private GameObject currentJudgementWindowUp;
@@ -41,6 +43,7 @@ public class Rhythm_Game_Master : MonoBehaviour
             if (Input.GetKeyDown(sys.inputDown)) judgeInput(Rhythm_InputDirection.DOWN);
             if (Input.GetKeyDown(sys.inputUp)) judgeInput(Rhythm_InputDirection.UP);
             if (Input.GetKeyDown(sys.inputRight)) judgeInput(Rhythm_InputDirection.RIGHT);
+            if (Input.GetKeyDown(sys.inputQuickRestart)) sys.loadGameScene();
 
             yield return null;
         }

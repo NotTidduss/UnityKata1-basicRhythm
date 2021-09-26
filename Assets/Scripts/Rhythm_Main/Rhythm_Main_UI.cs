@@ -8,14 +8,17 @@ public class Rhythm_Main_UI : MonoBehaviour
     [Header("System")]
     [SerializeField] private Rhythm_System sys;
 
+
     [Header ("UI References")]
     [SerializeField] private Slider optionsScrollSpeedSlider;
     [SerializeField] private Text optionsScrollSpeedValue;
-    [SerializeField] private Text optionsMenuKeyBindingsButtonText;
+    [SerializeField] private Text optionsMenuInputKeysButtonText;
+    [SerializeField] private Text optionsMenuQuickRestartButtonText;
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject optionsMenuBackground;
 
-    private Rhythm_KeybindingsConfigSteps keybindingsConfigSteps;
+    // private vars
+    private Rhythm_InputKeysConfigSteps inputKeysConfigSteps;
     private List<KeyCode> illegalKeybindings;
     private int slideInTimeInFrames;
     private float optionsMenuSourcePositionX, optionsMenuTargetPositionX, slideInDegree;
@@ -30,7 +33,8 @@ public class Rhythm_Main_UI : MonoBehaviour
         initializeScollSpeedSlider();
         
         updateScrollSpeedValueText();
-        updateKeybindingsButtonText();
+        updateInputKeysButtonText();
+        updateQuickRestartKeyButtonText();
     }
 
 
@@ -44,38 +48,38 @@ public class Rhythm_Main_UI : MonoBehaviour
         isOptionsMenuCurrentlyMoving = false;
     }
 
-    IEnumerator ConfigureKeybindings() {
+    IEnumerator ConfigureInputKeys() {
         while (isCurrentlyConfiguring) {
             foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode))) {
                 if (Input.GetKeyDown(key) && !illegalKeybindings.Contains(key)) {
                     illegalKeybindings.Add(key);
 
-                    switch (keybindingsConfigSteps) {
-                        case Rhythm_KeybindingsConfigSteps.INPUT_LEFT:
+                    switch (inputKeysConfigSteps) {
+                        case Rhythm_InputKeysConfigSteps.INPUT_LEFT:
                             PlayerPrefs.SetInt("rhythm_inputKeyLeft", (int)key);
-                            optionsMenuKeyBindingsButtonText.text = "" + key + ", _ , _ , _";
-                            keybindingsConfigSteps = Rhythm_KeybindingsConfigSteps.INPUT_DOWN;
+                            optionsMenuInputKeysButtonText.text = "" + key + ", _ , _ , _";
+                            inputKeysConfigSteps = Rhythm_InputKeysConfigSteps.INPUT_DOWN;
                             break;
-                        case Rhythm_KeybindingsConfigSteps.INPUT_DOWN:
+                        case Rhythm_InputKeysConfigSteps.INPUT_DOWN:
                             PlayerPrefs.SetInt("rhythm_inputKeyDown", (int)key);
-                            optionsMenuKeyBindingsButtonText.text = optionsMenuKeyBindingsButtonText.text.Split('_')[0] + key + ", _ , _"; 
-                            keybindingsConfigSteps = Rhythm_KeybindingsConfigSteps.INPUT_UP;
+                            optionsMenuInputKeysButtonText.text = optionsMenuInputKeysButtonText.text.Split('_')[0] + key + ", _ , _"; 
+                            inputKeysConfigSteps = Rhythm_InputKeysConfigSteps.INPUT_UP;
                             break;
-                        case Rhythm_KeybindingsConfigSteps.INPUT_UP:
+                        case Rhythm_InputKeysConfigSteps.INPUT_UP:
                             PlayerPrefs.SetInt("rhythm_inputKeyUp", (int)key);
-                            optionsMenuKeyBindingsButtonText.text = optionsMenuKeyBindingsButtonText.text.Split('_')[0] + key + ", _";
-                            keybindingsConfigSteps = Rhythm_KeybindingsConfigSteps.INPUT_RIGHT;
+                            optionsMenuInputKeysButtonText.text = optionsMenuInputKeysButtonText.text.Split('_')[0] + key + ", _";
+                            inputKeysConfigSteps = Rhythm_InputKeysConfigSteps.INPUT_RIGHT;
                             break;
-                        case Rhythm_KeybindingsConfigSteps.INPUT_RIGHT:
+                        case Rhythm_InputKeysConfigSteps.INPUT_RIGHT:
                             PlayerPrefs.SetInt("rhythm_inputKeyRight", (int)key);
-                            optionsMenuKeyBindingsButtonText.text = optionsMenuKeyBindingsButtonText.text.Split('_')[0] + key;
-                            keybindingsConfigSteps = Rhythm_KeybindingsConfigSteps.FINISH;
+                            optionsMenuInputKeysButtonText.text = optionsMenuInputKeysButtonText.text.Split('_')[0] + key;
+                            inputKeysConfigSteps = Rhythm_InputKeysConfigSteps.FINISH;
                             break;
                     }
                 }
             }
-            if (keybindingsConfigSteps == Rhythm_KeybindingsConfigSteps.FINISH) {
-                keybindingsConfigSteps = Rhythm_KeybindingsConfigSteps.INPUT_LEFT;
+            if (inputKeysConfigSteps == Rhythm_InputKeysConfigSteps.FINISH) {
+                inputKeysConfigSteps = Rhythm_InputKeysConfigSteps.INPUT_LEFT;
                 sys.updateKeybindings();
                 resetIllegalKeybindings();
                 isCurrentlyConfiguring = false;
@@ -84,12 +88,26 @@ public class Rhythm_Main_UI : MonoBehaviour
             yield return null;
         }
     }
+
+    IEnumerator ConfigureQuickRestartKey() {
+        while (isCurrentlyConfiguring) {
+            foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode))) {
+                if (Input.GetKeyDown(key) && !illegalKeybindings.Contains(key)) {
+                    PlayerPrefs.SetInt("rhythm_inputKeyQuickRestart", (int)key);
+                    sys.updateKeybindings();
+                    updateQuickRestartKeyButtonText();
+                    isCurrentlyConfiguring = false;
+                }
+            }
+            yield return null;
+        }
+    }
     
 
     private void initializePrivateVariables()
     {
-        // keybindingsConfigSteps
-        keybindingsConfigSteps = Rhythm_KeybindingsConfigSteps.INPUT_LEFT;
+        // inputKeysConfigSteps
+        inputKeysConfigSteps = Rhythm_InputKeysConfigSteps.INPUT_LEFT;
 
         // illegalKeybindings List
         resetIllegalKeybindings();
@@ -111,7 +129,8 @@ public class Rhythm_Main_UI : MonoBehaviour
 
     private void initializeScollSpeedSlider() => optionsScrollSpeedSlider.value = PlayerPrefs.GetFloat("rhythm_scrollSpeed");
     private void updateScrollSpeedValueText() => optionsScrollSpeedValue.text = PlayerPrefs.GetFloat("rhythm_scrollSpeed").ToString();
-    private void updateKeybindingsButtonText() => optionsMenuKeyBindingsButtonText.text = "" + sys.inputLeft + "," + sys.inputDown + "," + sys.inputUp + "," + sys.inputRight;
+    private void updateInputKeysButtonText() => optionsMenuInputKeysButtonText.text = "" + sys.inputLeft + "," + sys.inputDown + "," + sys.inputUp + "," + sys.inputRight;
+    private void updateQuickRestartKeyButtonText() => optionsMenuQuickRestartButtonText.text = "" + sys.inputQuickRestart;
 
 
     public void changeScrollSpeed() {
@@ -138,12 +157,21 @@ public class Rhythm_Main_UI : MonoBehaviour
         }
     } 
 
-    public void onKeybindingsButtonPress() {
+    public void onInputKeysButtonPress() {
         if (!isCurrentlyConfiguring) {
             isCurrentlyConfiguring = true;
-            optionsMenuKeyBindingsButtonText.text = "Press 4 input buttons";
+            optionsMenuInputKeysButtonText.text = "Press 4 input keys";
 
-            StartCoroutine("ConfigureKeybindings");
+            StartCoroutine("ConfigureInputKeys");
+        }
+    }
+
+    public void onQuickRestartKeyButtonPress() {
+        if (!isCurrentlyConfiguring) {
+            isCurrentlyConfiguring = true;
+            optionsMenuQuickRestartButtonText.text = "Press new key";
+
+            StartCoroutine("ConfigureQuickRestartKey");
         }
     }
 }
