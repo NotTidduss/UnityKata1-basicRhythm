@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,20 +9,8 @@ public class Rhythm_TimingIndicatorMaster : MonoBehaviour
     private float fadeTimeInFrames, fadeDegree;
 
 
-    IEnumerator CheckForNoteHit() {
-        while(true) {
-            if (PlayerPrefs.GetString("rhythm_lastNoteHitTiming") != "") {
-                GameObject indicatorImagePrefabClone = Instantiate(indicatorImagePrefab, transform);
-                indicatorImagePrefabClone.GetComponent<Image>().sprite = (getNewSprite(PlayerPrefs.GetString("rhythm_lastNoteHitTiming"))); 
-                indicatorImagePrefabClone.GetComponent<Rhythm_TimingIndicator>().initialize(fadeTimeInFrames, fadeDegree);
-                PlayerPrefs.SetString("rhythm_lastNoteHitTiming", "");
-            }
-            yield return null;
-        }
-    }
-
-
     public void initialize(Rhythm_System sys) {
+        // initialize private vars
         indicatorImagePrefab = sys.timingIndicatorPrefab;
 
         spriteIndicatorPerfect = sys.spriteIndicatorPerfect;
@@ -33,8 +20,15 @@ public class Rhythm_TimingIndicatorMaster : MonoBehaviour
 
         fadeTimeInFrames = sys.timingIndicatorFadeTimeInFrames;
         fadeDegree = 1 / fadeTimeInFrames;
+    }
 
-        StartCoroutine("CheckForNoteHit");
+    /*
+        Spawn indicator object, and set desired attributes.
+    */
+    public void spawnIndicator() {
+        GameObject indicatorImagePrefabClone = Instantiate(indicatorImagePrefab, transform);
+        indicatorImagePrefabClone.GetComponent<Image>().sprite = (getNewSprite(PlayerPrefs.GetString("rhythm_lastNoteHitTiming"))); 
+        indicatorImagePrefabClone.GetComponent<Rhythm_TimingIndicator>().initialize(fadeTimeInFrames, fadeDegree);
     }
 
 

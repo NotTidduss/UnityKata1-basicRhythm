@@ -49,12 +49,19 @@ public class Rhythm_Init : MonoBehaviour
         if (PlayerPrefs.GetInt("rhythm_inputKeyRight") == 0)
             PlayerPrefs.SetInt("rhythm_inputKeyRight", (int) KeyCode.RightArrow);
 
-        // INT rhythm_inputKeyQuickRestart - right key button, default = RightArrow
+        // INT rhythm_inputKeyQuickRestart - button to quickly restart a map, default = R
         if (PlayerPrefs.GetInt("rhythm_inputKeyQuickRestart") == 0)
             PlayerPrefs.SetInt("rhythm_inputKeyQuickRestart", (int) KeyCode.R);
 
+        // INT rhythm_inputKeyPause - button to pause the map, default = ESCAPE
+        if (PlayerPrefs.GetInt("rhythm_inputKeyPause") == 0)
+            PlayerPrefs.SetInt("rhythm_inputKeyPause", (int) KeyCode.Escape);
+
         // INT rhythm_mapScore - the score of the currently played map. Initial value should be 0.
         PlayerPrefs.SetInt("rhythm_mapScore", 0);
+
+        // INT rhythm_paused - an indicator that shows if the game is currently paused. If odd, it's paused; if even, it's not. Initial value should be 0.
+        PlayerPrefs.SetInt("rhythm_paused", 0);
 
         // STRING rhythm_lastNoteHitTiming - the timing in which the last not was hit. Either PERFECT, GOOD, FINE, MISS or "".
         PlayerPrefs.SetString("rhythm_lastNoteHitTiming", "");

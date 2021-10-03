@@ -4,7 +4,7 @@ using UnityEngine;
 public class Rhythm_Chart : MonoBehaviour
 {   
     [Header("Scene References")]
-    [SerializeField] private Transform playAreaTransform;
+    [SerializeField] private Transform chartAreaTransform;
 
     [Header("Prefab References")]
     [SerializeField] private GameObject shortNoteLeft;
@@ -13,15 +13,23 @@ public class Rhythm_Chart : MonoBehaviour
     [SerializeField] private GameObject shortNoteRight;
 
 
+    public void initialize() => StartCoroutine("RunChart");
+
+
     IEnumerator RunChart() {
         while(true) {
-            placeRandomNote();
-            yield return new WaitForSeconds(1f);
+            if (PlayerPrefs.GetInt("rhythm_paused") % 2 == 0) {
+                placeRandomNote();
+                yield return new WaitForSeconds(1f);
+            }
+            else yield return null;
         }
     }
 
 
-    public void initialize() => StartCoroutine("RunChart");
+    /*
+        Randomly select a note and place it using (@link placeNote).
+    */
     public void placeRandomNote() {
         int rng = Random.Range(0,4);
 
@@ -33,5 +41,10 @@ public class Rhythm_Chart : MonoBehaviour
         }
     }
 
-    private void placeNote(GameObject note) => Instantiate(note, playAreaTransform);
+
+    /*
+        Place a given note prefab into the chart area.
+        @param note - note prefab
+    */
+    private void placeNote(GameObject note) => Instantiate(note, chartAreaTransform);
 }

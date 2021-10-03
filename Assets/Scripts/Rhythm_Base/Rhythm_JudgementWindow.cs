@@ -1,10 +1,12 @@
 using UnityEngine;
 
+// TODO: Note judgement will be reworked to be based on transform position instead of collision detection; this class might be obsolete then.
 public class Rhythm_JudgementWindow : MonoBehaviour
 {
     [Header ("Judgement Window Attributes")]
     [SerializeField] private Rhythm_JudgementType judgementType;
 
+    // private vars
     private int judgementValue;
 
 

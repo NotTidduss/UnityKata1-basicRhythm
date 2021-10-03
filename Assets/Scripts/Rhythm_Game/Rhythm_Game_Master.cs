@@ -13,7 +13,6 @@ public class Rhythm_Game_Master : MonoBehaviour
     [SerializeField] private Transform noteInputTransformUp;
     [SerializeField] private Transform noteInputTransformRight;
 
-
     [Header("Prefab References")]
     [SerializeField] private GameObject leftJudgementWindowPrefabReference;
     [SerializeField] private GameObject downJudgementWindowPrefabReference;
@@ -28,12 +27,17 @@ public class Rhythm_Game_Master : MonoBehaviour
 
 
     void Start() {
+        // initialize PlayerPrefs
+        PlayerPrefs.SetInt("rhythm_paused", 0);
+
+        // initialize Scene References
         ui.initialize();
         chart.initialize();
         timingIndicator.initialize(sys);
 
         StartCoroutine("CheckForButtonPress");
         StartCoroutine("CheckForButtonRelease");
+        StartCoroutine("HandleIndicators");
     }
 
 
@@ -43,7 +47,8 @@ public class Rhythm_Game_Master : MonoBehaviour
             if (Input.GetKeyDown(sys.inputDown)) judgeInput(Rhythm_InputDirection.DOWN);
             if (Input.GetKeyDown(sys.inputUp)) judgeInput(Rhythm_InputDirection.UP);
             if (Input.GetKeyDown(sys.inputRight)) judgeInput(Rhythm_InputDirection.RIGHT);
-            if (Input.GetKeyDown(sys.inputQuickRestart)) sys.loadGameScene();
+            if (Input.GetKeyDown(sys.inputQuickRestart)) restartMap();
+            if (Input.GetKeyDown(sys.inputPause)) togglePaused();
 
             yield return null;
         }
@@ -58,6 +63,26 @@ public class Rhythm_Game_Master : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    IEnumerator HandleIndicators() {
+        while(true) {
+            if (PlayerPrefs.GetString("rhythm_lastNoteHitTiming") != "") {
+                timingIndicator.spawnIndicator();
+                ui.updateIndicatorCounts();
+                PlayerPrefs.SetString("rhythm_lastNoteHitTiming", "");
+            }
+            yield return null;
+        }
+    }
+
+
+    public void restartMap() => sys.loadGameScene();
+    public void exitToMainMenu() => sys.loadMainScene();
+
+    public void togglePaused() {
+        ui.togglePauseMenu();
+        PlayerPrefs.SetInt("rhythm_paused", PlayerPrefs.GetInt("rhythm_paused") + 1);
     }
 
 
