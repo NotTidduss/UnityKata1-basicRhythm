@@ -17,7 +17,7 @@ public class Rhythm_Main_UI : MonoBehaviour
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject optionsMenuBackground;
 
-    // private vars
+    //* private vars
     private Rhythm_InputKeysConfigSteps inputKeysConfigSteps;
     private List<KeyCode> illegalKeybindings, assignedKeybindings;
     private int slideInTimeInFrames;

@@ -3,13 +3,16 @@ using System.Collections;
 
 public class Rhythm_ShortNote : MonoBehaviour
 {
+    //* private vars
+    // index that keeps track of the note's place in the chart.
+    private int index;
     private float fallSpeed;
 
 
-    // TODO: replace with initialize()
-    void Start() {
+    public void initialize(int newIndex) {
         // initialize private vars
         fallSpeed = PlayerPrefs.GetFloat("rhythm_scrollSpeed") / 5;
+        index = newIndex;
 
         StartCoroutine("Fall");
     } 
@@ -21,7 +24,7 @@ public class Rhythm_ShortNote : MonoBehaviour
                 transform.Translate(0, -fallSpeed, 0);
 
                 // count as miss if note falls too low, and destroy this object.
-                if (gameObject.transform.position.y < -150f) {
+                if (gameObject.transform.position.y < -100f) {
                     PlayerPrefs.SetInt("rhythm_mapScore", PlayerPrefs.GetInt("rhythm_mapScore") + PlayerPrefs.GetInt("rhythm_judgementValue_outOfBounds"));
                     PlayerPrefs.SetString("rhythm_lastNoteHitTiming", "MISS");
                     Destroy(gameObject);
@@ -30,4 +33,6 @@ public class Rhythm_ShortNote : MonoBehaviour
             yield return null;
         }
     }
+
+    public int getIndex() => index;
 }

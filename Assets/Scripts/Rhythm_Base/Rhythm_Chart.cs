@@ -4,13 +4,22 @@ using UnityEngine;
 public class Rhythm_Chart : MonoBehaviour
 {   
     [Header("Scene References")]
-    [SerializeField] private Transform chartAreaTransform;
+    [SerializeField] private Transform leftLaneTransform;
+    [SerializeField] private Transform downLaneTransform;
+    [SerializeField] private Transform upLaneTransform;
+    [SerializeField] private Transform rightLaneTransform;
+
 
     [Header("Prefab References")]
     [SerializeField] private GameObject shortNoteLeft;
     [SerializeField] private GameObject shortNoteDown;
     [SerializeField] private GameObject shortNoteUp;
     [SerializeField] private GameObject shortNoteRight;
+
+
+    //* private vars
+    // note indices are used to keep track of the next-to-hit notes.
+    private int noteLeftIndex, noteDownIndex, noteUpIndex, noteRightIndex = 0;
 
 
     public void initialize() => StartCoroutine("RunChart");
@@ -34,10 +43,10 @@ public class Rhythm_Chart : MonoBehaviour
         int rng = Random.Range(0,4);
 
         switch(rng){
-            case 0: placeNote(shortNoteLeft); break;
-            case 1: placeNote(shortNoteDown); break;
-            case 2: placeNote(shortNoteUp); break;
-            case 3: placeNote(shortNoteRight); break;
+            case 0: placeNote(shortNoteLeft, leftLaneTransform, noteLeftIndex++); break;
+            case 1: placeNote(shortNoteDown, downLaneTransform, noteDownIndex++); break;
+            case 2: placeNote(shortNoteUp, upLaneTransform, noteUpIndex++); break;
+            case 3: placeNote(shortNoteRight, rightLaneTransform, noteRightIndex++); break;
         }
     }
 
@@ -46,5 +55,8 @@ public class Rhythm_Chart : MonoBehaviour
         Place a given note prefab into the chart area.
         @param note - note prefab
     */
-    private void placeNote(GameObject note) => Instantiate(note, chartAreaTransform);
+    private void placeNote(GameObject note, Transform lane, int currentNoteIndex) {
+        GameObject newNote = Instantiate(note, lane);
+        newNote.GetComponent<Rhythm_ShortNote>().initialize(currentNoteIndex);
+    } 
 }

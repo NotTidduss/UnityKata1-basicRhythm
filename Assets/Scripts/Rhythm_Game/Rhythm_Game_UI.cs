@@ -17,7 +17,8 @@ public class Rhythm_Game_UI : MonoBehaviour
     [SerializeField] private Text fineCountText;
     [SerializeField] private Text missCountText;
 
-    // private vars
+    //* private vars
+    // variables to keep track of indicator counts
     private int perfectCount, goodCount, fineCount, missCount = 0;
 
 

@@ -4,7 +4,10 @@ using UnityEngine.UI;
 
 public class Rhythm_TimingIndicator : MonoBehaviour
 {
+    //* private vars
+    // reference to the indicator's Image component
     private Image currentImage;
+    // variables for fading
     private float fTime, fDegree;
 
 

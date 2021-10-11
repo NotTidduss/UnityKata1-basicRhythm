@@ -82,10 +82,3 @@ public enum Rhythm_InputDirection {
     UP,
     RIGHT
 }
-
-public enum Rhythm_JudgementType {
-    PERFECT,
-    GOOD,
-    FINE,
-    MISS
-}

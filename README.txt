@@ -9,8 +9,7 @@ Current features:
  * pausing
 
 ToDo:
-- rework note timing judgement to be based on position
-- rework notes
+- only use one prefab for notes
 - implement long notes
 - implement health system
 - show something meaningful when assigned key is assigned again
@@ -19,3 +18,6 @@ ToDo:
 - implement result screen
 - aesthetic update
 - destroy indicators so that there is only ever one present at a time
+- optimize pausing
+- optimize scroll speed
+- make every fixed value configurable in System

@@ -3,9 +3,12 @@ using UnityEngine.UI;
 
 public class Rhythm_TimingIndicatorMaster : MonoBehaviour
 {
+    //* private vars
+    // reference to indicator image prefab
     private GameObject indicatorImagePrefab;
-    private Image currentImage;
+    // references to sprites that are derived from System
     private Sprite spriteIndicatorPerfect, spriteIndicatorGood, spriteIndicatorFine, spriteIndicatorMiss;
+    // variables for fading
     private float fadeTimeInFrames, fadeDegree;
 
 
