@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class Rhythm_Main_UI : MonoBehaviour
 {
-    [Header("System")]
-    [SerializeField] private Rhythm_System sys;
+    [Header("Master")]
+    [SerializeField] private Rhythm_Main_Master master;
+
 
     [Header ("UI References")]
     [SerializeField] private Slider optionsScrollSpeedSlider;
@@ -17,7 +18,9 @@ public class Rhythm_Main_UI : MonoBehaviour
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject optionsMenuBackground;
 
+
     //* private vars
+    private Rhythm_System sys;
     private Rhythm_InputKeysConfigSteps inputKeysConfigSteps;
     private List<KeyCode> illegalKeybindings, assignedKeybindings;
     private int slideInTimeInFrames;
@@ -25,10 +28,11 @@ public class Rhythm_Main_UI : MonoBehaviour
     private bool isOptionsMenuShown = false;
     private bool isOptionsMenuCurrentlyMoving = false;
     private bool isCurrentlyConfiguring = false;
-    private string buttonTextIndicator;
 
 
-    public void initialize() {
+    public void initialize(Rhythm_System sysRef) {
+        sys = sysRef;
+
         initializePrivateVariables();
 
         initializeScollSpeedSlider();
@@ -46,7 +50,7 @@ public class Rhythm_Main_UI : MonoBehaviour
         isOptionsMenuCurrentlyMoving = false;
     }
 
-    IEnumerator ConfigureInputKeys() {
+    IEnumerator Configure4KInputKeys() {
         while (isCurrentlyConfiguring) {
             foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode))) {
                 if (Input.GetKeyDown(key) && !illegalKeybindings.Contains(key)) {
@@ -90,7 +94,7 @@ public class Rhythm_Main_UI : MonoBehaviour
         }
     }
 
-    IEnumerator ConfigureKey() {
+    IEnumerator ConfigureKey(string buttonTextIndicator) {
         isCurrentlyConfiguring = true;
         setButtonText(buttonTextIndicator, sys.defaultKeyConfigText);
         unassignKeybinding(buttonTextIndicator);
@@ -154,7 +158,7 @@ public class Rhythm_Main_UI : MonoBehaviour
         Get desired text that should be set after an input key has been configured.
     */
     private string getKeyButtonText(string buttonTextIndicator) {
-        switch (this.buttonTextIndicator) {
+        switch (buttonTextIndicator) {
             case "rhythm_inputKeyQuickRestart": return "" + sys.inputQuickRestart;
             case "rhythm_inputKeyPause": return "" + sys.inputPause;
             default: return "";
@@ -162,7 +166,7 @@ public class Rhythm_Main_UI : MonoBehaviour
     }
 
 
-    #region Keybinding Functions
+#region Keybinding Functions
     private void updateAssignedKeybindings() => assignedKeybindings = sys.currentKeybindings;
     private void resetIllegalKeybindings() {
         illegalKeybindings = new List<KeyCode>();
@@ -187,26 +191,26 @@ public class Rhythm_Main_UI : MonoBehaviour
         assignedKeybindings.Remove(sys.inputUp);
         assignedKeybindings.Remove(sys.inputRight);
     }
-    #endregion
+#endregion
 
-    #region Slider Functions
+#region Slider Functions
     public void changeScrollSpeed() {
         PlayerPrefs.SetFloat("rhythm_scrollSpeed", Mathf.Round(optionsScrollSpeedSlider.value * 10)/10);
         updateScrollSpeedValueText();
     }
-    #endregion
+#endregion
 
-    #region Button Functions
+#region Button Functions
     public void onPlayButtonPress() {
         if (!isCurrentlyConfiguring) {
-            sys.loadGameScene();
+            master.switchScene(sys.gameSceneName);
         }
     } 
 
     public void onOptionsButtonPress() {
         if (!isOptionsMenuCurrentlyMoving && !isCurrentlyConfiguring) {
             isOptionsMenuCurrentlyMoving = true;
-            StartCoroutine("ToggleOptionsMenuVisibility");
+            StartCoroutine(ToggleOptionsMenuVisibility());
         }
     }
 
@@ -222,22 +226,20 @@ public class Rhythm_Main_UI : MonoBehaviour
             optionsMenuInputKeysButtonText.text = "Press 4 input keys";
             unassignInputKeybindings();
 
-            StartCoroutine("ConfigureInputKeys");
+            StartCoroutine(Configure4KInputKeys());
         }
     }
 
     public void onQuickRestartKeyButtonPress() {
         if (!isCurrentlyConfiguring) {
-            buttonTextIndicator = "rhythm_inputKeyQuickRestart";
-            StartCoroutine("ConfigureKey");
+            StartCoroutine(ConfigureKey("rhythm_inputKeyQuickRestart"));
         }
     }
 
     public void onPauseKeyButtonPress() {
         if (!isCurrentlyConfiguring) {
-            buttonTextIndicator = "rhythm_inputKeyPause";
-            StartCoroutine("ConfigureKey");
+            StartCoroutine(ConfigureKey("rhythm_inputKeyPause"));
         }
     }
-    #endregion
+#endregion
 }

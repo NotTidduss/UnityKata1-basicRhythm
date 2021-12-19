@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Rhythm_TimingIndicator : MonoBehaviour
+public class Rhythm_Game_TimingIndicator : MonoBehaviour
 {
     //* private vars
     // reference to the indicator's Image component

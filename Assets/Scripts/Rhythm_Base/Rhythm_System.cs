@@ -9,17 +9,6 @@ public class Rhythm_System : MonoBehaviour
     public string gameSceneName = "2x_Rhythm_Game";
     public string resultSceneName = "3x_Rhythm_Result";
 
-    [Header("Game Backend Data")]
-    public string defaultKeyConfigText = "Press new key";
-    public int optionsMenuSlideInTimeInFrames = 150;
-
-    [Header("Timing Indicator Preferences")]
-    public Sprite spriteIndicatorPerfect;
-    public Sprite spriteIndicatorGood;
-    public Sprite spriteIndicatorFine;
-    public Sprite spriteIndicatorMiss;
-    public GameObject timingIndicatorPrefab;
-    public float timingIndicatorFadeTimeInFrames = 400;
 
     [Header("Key Bindings")]
     public KeyCode inputLeft;
@@ -31,12 +20,54 @@ public class Rhythm_System : MonoBehaviour
     public List<KeyCode> currentKeybindings;
 
 
+    [Header("Note Sprites")]
+    public Sprite spriteNoteLeft;
+    public Sprite spriteNoteDown;
+    public Sprite spriteNoteUp;
+    public Sprite spriteNoteRight;
+    public Sprite spriteNoteMissed;
+
+
+    [Header("Timing Indicator related Preferences")]
+    public Sprite spriteIndicatorPerfect;
+    public Sprite spriteIndicatorGood;
+    public Sprite spriteIndicatorFine;
+    public Sprite spriteIndicatorMiss;
+    public GameObject timingIndicatorPrefab;
+    public float timingIndicatorFadeTimeInFrames = 400;
+
+
+    [Header("Game Backend Data")]
+    public string defaultKeyConfigText = "Press new key";
+    public int optionsMenuSlideInTimeInFrames = 150;
+    public float transitionDurationInFrames = 500;
+
+
+    [Header("Judgement Window related Preferences")]
+    public int judgementScoreValuePerfect = 100;
+    public int judgementScoreValueGood = 60;
+    public int judgementScoreValueFine = 20;
+    public int judgementScoreValueMiss = 0;
+    public float judgementWindowEntryPointY = 125;
+    public float judgementWindowUpperFineEntryPointY = 100;
+    public float judgementWindowUpperGoodEntryPointY = 60;
+    public float judgementWindowUpperPerfectEntryPointY = 20;
+    public float judgementWindowLowerFineExitPointY = -100;
+    public float judgementWindowLowerGoodExitPointY = -60;
+    public float judgementWindowLowerPerfectExitPointY = -20;
+
+
+    [Header("Health related Preferences")]
+    public float healingValuePerfect = 3.3f;
+    public float healingValueGood = 0;
+    public float damageValueFine = 2.2f;
+    public float damageValueMiss = 6.6f;
+
+
     void Awake() => updateKeybindings();
 
 
-    /*
-        Fetch keybindings from PlayerPrefs.
-    */
+    // Fetch keybindings from PlayerPrefs.
     public void updateKeybindings() {
         inputLeft = (KeyCode)PlayerPrefs.GetInt("rhythm_inputKeyLeft");
         inputDown = (KeyCode)PlayerPrefs.GetInt("rhythm_inputKeyDown");
@@ -49,14 +80,13 @@ public class Rhythm_System : MonoBehaviour
     }
 
     // SceneManagement
+    public void loadScene(string sceneName) => SceneManager.LoadScene(sceneName);
     public void loadGameScene() => SceneManager.LoadScene(gameSceneName);
     public void loadMainScene() => SceneManager.LoadScene(mainSceneName);
     public void loadResultScene() => SceneManager.LoadScene(resultSceneName);
 
 
-    /*
-        Fill a list with currently assigned keybindings, used in input configuration.
-    */
+    // Fill a list with currently assigned keybindings, used in input configuration.
     private void resetKeybindingsList() {
         currentKeybindings = new List<KeyCode>();
         currentKeybindings.Add(inputLeft);
@@ -68,6 +98,7 @@ public class Rhythm_System : MonoBehaviour
     }
 }
 
+// used for configuring 4K keys
 public enum Rhythm_InputKeysConfigSteps {
     INPUT_LEFT,
     INPUT_DOWN,
@@ -81,4 +112,16 @@ public enum Rhythm_InputDirection {
     DOWN,
     UP,
     RIGHT
+}
+
+public enum Rhythm_Note_Type {
+    SHORT,
+    LONG
+}
+
+public enum Rhythm_Judgement {
+    MISS,
+    FINE,
+    GOOD,
+    PERFECT
 }
