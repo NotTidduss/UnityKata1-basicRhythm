@@ -4,6 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class Rhythm_System : MonoBehaviour
 {
+    [Header("PlayerPrefsMaster")]
+    [SerializeField] private Rhythm_PlayerPrefsMaster playerPrefsMaster;
+
+
     [Header("Scene Names")]
     public string mainSceneName = "1x_Rhythm_Main";
     public string gameSceneName = "2x_Rhythm_Game";
@@ -64,7 +68,14 @@ public class Rhythm_System : MonoBehaviour
     public float damageValueMiss = 6.6f;
 
 
-    void Awake() => updateKeybindings();
+    public void initialize() {
+        resetPlayerPrefs();
+        updateKeybindings();
+    } 
+
+
+    // Use PlayerPrefsMaster to reset PlayerPrefs.
+    public void resetPlayerPrefs() => playerPrefsMaster.resetPlayerPrefs();
 
 
     // Fetch keybindings from PlayerPrefs.
@@ -81,9 +92,9 @@ public class Rhythm_System : MonoBehaviour
 
     // SceneManagement
     public void loadScene(string sceneName) => SceneManager.LoadScene(sceneName);
-    public void loadGameScene() => SceneManager.LoadScene(gameSceneName);
-    public void loadMainScene() => SceneManager.LoadScene(mainSceneName);
-    public void loadResultScene() => SceneManager.LoadScene(resultSceneName);
+    public void loadGameScene() => loadScene(gameSceneName);
+    public void loadMainScene() => loadScene(mainSceneName);
+    public void loadResultScene() => loadScene(resultSceneName);
 
 
     // Fill a list with currently assigned keybindings, used in input configuration.

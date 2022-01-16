@@ -1,14 +1,9 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Rhythm_Init : MonoBehaviour
+public class Rhythm_PlayerPrefsMaster : MonoBehaviour
 {
-    void Awake() {
-        initializePlayerPrefs();
-        SceneManager.LoadScene("1x_Rhythm_Main");
-    }
-
-    private void initializePlayerPrefs() {
+    // reset all PlayerPrefs to a desired starting value. Also, Documentation.
+    public void resetPlayerPrefs() {
         // FLOAT rhythm_scrollSpeed - the speed at which notes are scrolling down the chart
         if (PlayerPrefs.GetFloat("rhythm_scrollSpeed") == 0)
             PlayerPrefs.SetFloat("rhythm_scrollSpeed", 15f);

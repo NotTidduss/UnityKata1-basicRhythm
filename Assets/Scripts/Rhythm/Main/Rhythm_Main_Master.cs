@@ -9,6 +9,7 @@ public class Rhythm_Main_Master : MonoBehaviour
 
 
     void Start() {
+        sys.initialize();
         ui.initialize(sys);
         transitionMaster.initialize(sys);
     }

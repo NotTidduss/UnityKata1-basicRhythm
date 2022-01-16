@@ -563,22 +563,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1e7286e9c06964b8c6fc9039d2457a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefsMaster: {fileID: 1721226350}
   mainSceneName: 1x_Rhythm_Main
   gameSceneName: 2x_Rhythm_Game
   resultSceneName: 3x_Rhythm_Result
-  defaultKeyConfigText: Press new key
-  optionsMenuSlideInTimeInFrames: 150
-  transitionDurationInFrames: 500
-  spriteNoteLeft: {fileID: 0}
-  spriteNoteDown: {fileID: 0}
-  spriteNoteUp: {fileID: 0}
-  spriteNoteRight: {fileID: 0}
-  spriteIndicatorPerfect: {fileID: 0}
-  spriteIndicatorGood: {fileID: 0}
-  spriteIndicatorFine: {fileID: 0}
-  spriteIndicatorMiss: {fileID: 0}
-  timingIndicatorPrefab: {fileID: 0}
-  timingIndicatorFadeTimeInFrames: 400
   inputLeft: 0
   inputDown: 0
   inputUp: 0
@@ -586,6 +574,35 @@ MonoBehaviour:
   inputQuickRestart: 0
   inputPause: 0
   currentKeybindings: 
+  spriteNoteLeft: {fileID: 0}
+  spriteNoteDown: {fileID: 0}
+  spriteNoteUp: {fileID: 0}
+  spriteNoteRight: {fileID: 0}
+  spriteNoteMissed: {fileID: 0}
+  spriteIndicatorPerfect: {fileID: 0}
+  spriteIndicatorGood: {fileID: 0}
+  spriteIndicatorFine: {fileID: 0}
+  spriteIndicatorMiss: {fileID: 0}
+  timingIndicatorPrefab: {fileID: 0}
+  timingIndicatorFadeTimeInFrames: 400
+  defaultKeyConfigText: Press new key
+  optionsMenuSlideInTimeInFrames: 150
+  transitionDurationInFrames: 500
+  judgementScoreValuePerfect: 100
+  judgementScoreValueGood: 60
+  judgementScoreValueFine: 20
+  judgementScoreValueMiss: 0
+  judgementWindowEntryPointY: 125
+  judgementWindowUpperFineEntryPointY: 100
+  judgementWindowUpperGoodEntryPointY: 60
+  judgementWindowUpperPerfectEntryPointY: 20
+  judgementWindowLowerFineExitPointY: -100
+  judgementWindowLowerGoodExitPointY: -60
+  judgementWindowLowerPerfectExitPointY: -20
+  healingValuePerfect: 3.3
+  healingValueGood: 0
+  damageValueFine: 2.2
+  damageValueMiss: 6.6
 --- !u!4 &713001483
 Transform:
   m_ObjectHideFlags: 0
@@ -596,7 +613,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1721226349}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2987,6 +3005,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654180747}
   m_CullTransparentMesh: 1
+--- !u!1 &1721226348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1721226349}
+  - component: {fileID: 1721226350}
+  m_Layer: 0
+  m_Name: PlayerPrefsMaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1721226349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721226348}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 713001483}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1721226350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721226348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f6de0bdfa811a469c2d7057654c3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1731931754
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,14 +18,8 @@ public class Rhythm_Game_Master : MonoBehaviour
 
 
     void Start() {
-        // initialize PlayerPrefs
-        PlayerPrefs.SetInt("rhythm_paused", 0);
-        PlayerPrefs.SetInt("rhythm_perfectHitCount", 0);
-        PlayerPrefs.SetInt("rhythm_goodHitCount", 0);
-        PlayerPrefs.SetInt("rhythm_fineHitCount", 0);
-        PlayerPrefs.SetInt("rhythm_missCount", 0);
-
         // initialize Scene References
+        sys.initialize();
         ui.initialize(sys);
         healthMaster.initialize(sys);
         transitionMaster.initialize(sys);

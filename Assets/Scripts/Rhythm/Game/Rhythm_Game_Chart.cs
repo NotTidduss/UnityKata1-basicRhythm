@@ -33,8 +33,8 @@ public class Rhythm_Game_Chart : MonoBehaviour
         // start placing notes in lanes
         StartCoroutine("PlaceNotesInLeftLane");
         StartCoroutine("PlaceNotesInDownLane");
-        //StartCoroutine("PlaceNotesInUpLane");
-        //StartCoroutine("PlaceNotesInRightLane");
+        StartCoroutine("PlaceNotesInUpLane");
+        StartCoroutine("PlaceNotesInRightLane");
 
         // calculate wait time between notes based on set scroll speed
         scrollSpeedWaitTime = PlayerPrefs.GetFloat("rhythm_scrollSpeed") / 5f;
